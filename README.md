@@ -3,7 +3,7 @@ This is the repository of my 30+ projects which I have done during my Android De
 All this files contain small projects.<br />
 
 
-**:INDEX:**
+**:INDEX:**<br />
 [1. Hello World App](https://github.com/AtharvaMahamuni/Android-course-files/tree/main/01Hello)<br />
 [2. Basics of Buttons](https://github.com/AtharvaMahamuni/Android-course-files/tree/main/02ProjectButton)<br />
 [3. Usage of Toast messages](https://github.com/AtharvaMahamuni/Android-course-files/tree/main/03ProjectToast)<br />
