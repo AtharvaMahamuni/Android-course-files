@@ -1,0 +1,2 @@
+rootProject.name='22RecyclerCards'
+include ':app'
