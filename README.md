@@ -1,5 +1,5 @@
 # Android-course-files
-This is the file of my 30+ projects which I have done during my Android Development course.<br />
+This is the repository of my 30+ projects which I have done during my Android Development course.<br />
 All this files contain small projects.<br />
 
 [1. Hello World App](https://github.com/AtharvaMahamuni/Android-course-files/tree/main/01Hello)<br />
