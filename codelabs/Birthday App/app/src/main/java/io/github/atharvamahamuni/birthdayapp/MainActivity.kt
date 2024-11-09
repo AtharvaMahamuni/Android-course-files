@@ -29,15 +29,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             BirthdayAppTheme {
                 Surface(
-                        modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
                 ) {
                 GreetingText(
                     message = "Happy Birthday Sam!",
                     from = "From Atharva",
                     modifier = Modifier.padding(8.dp)
                 )
-            }
+                }
             }
         }
     }
@@ -62,6 +62,11 @@ fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
                 .align(alignment = Alignment.End)
         )
     }
+}
+
+@Composable
+fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier) {
+    
 }
 
 @Preview(
