@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Compose Quadrant</string>
+    <string name="first_title">First title</string>
+    <string name="first_description">First Title description.</string>
+    <string name="second_title">Second Title</string>
+    <string name="second_description">Second Title Description</string>
+    <string name="third_title">Third Title</string>
+    <string name="third_description">Third Title description</string>
+    <string name="fourth_title">Fourth Title</string>
+    <string name="fourth_description">Fourth Title Description</string>
+</resources>
