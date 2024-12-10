@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             GridAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    GridApp()
+                    GridApp(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GridApp(topics: List<Topic> = DataSource.topics) {
+fun GridApp(topics: List<Topic> = DataSource.topics, modifier: Modifier) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Categories") })
@@ -162,6 +162,6 @@ fun GridCardPreview() {
 @Composable
 fun GridAppPreview() {
     GridAppTheme {
-        GridApp()
+        GridApp(modifier = Modifier)
     }
 }
