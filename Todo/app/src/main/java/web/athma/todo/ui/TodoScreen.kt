@@ -14,26 +14,22 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlin.collections.plus
+import kotlinx.coroutines.flow.count
 
 @Composable
-fun TodoScreen(modifier: Modifier = Modifier, viewModel: TodoViewModel = viewModel()) {
-     val todoTextState = remember { mutableStateOf("") }
-     val fakeTodos = remember {
-         mutableStateOf(
-             listOf(
-                 "Buy milk",
-                 "Learn MVVM",
-                 "Build todo app"
-             )
-         )
-     }
+fun TodoScreen(modifier: Modifier = Modifier, todoViewModelFactory: TodoViewModelFactory) {
+    val viewModel: TodoViewModel = viewModel(factory = todoViewModelFactory)
+    val todosState = viewModel.todos.collectAsState(initial = emptyList())
+
+    val todoTextState = viewModel.todoTextState
+    val todos = todosState.value
 
     Scaffold(
         bottomBar = {
@@ -45,13 +41,13 @@ fun TodoScreen(modifier: Modifier = Modifier, viewModel: TodoViewModel = viewMod
                     modifier = Modifier
                         .weight(4f),
                     value = todoTextState.value,
-                    onValueChange = { todoTextState.value = it },
+                    onValueChange = { viewModel.updateText(it) },
                 )
                 IconButton (
                     onClick = {
                         if (todoTextState.value.isNotEmpty()) {
-                            fakeTodos.value += todoTextState.value
-                            todoTextState.value = ""
+                            viewModel.addTodo()
+                            viewModel.updateText("")
                         }
                     }
                 ) {
@@ -69,10 +65,9 @@ fun TodoScreen(modifier: Modifier = Modifier, viewModel: TodoViewModel = viewMod
             modifier = Modifier
                 .fillMaxHeight()
                 .padding(paddingValues),
-
             reverseLayout = true
         ) {
-            items(fakeTodos.value.reversed()) { todo ->
+            items(todos) { todo ->
                 val isChecked = remember { mutableStateOf(false) }
 
                 Row(
@@ -83,7 +78,7 @@ fun TodoScreen(modifier: Modifier = Modifier, viewModel: TodoViewModel = viewMod
                         checked = isChecked.value,
                         onCheckedChange = { isChecked.value = it }
                     )
-                    Text(text = todo)
+                    Text(text = todo.task)
                 }
             }
         }

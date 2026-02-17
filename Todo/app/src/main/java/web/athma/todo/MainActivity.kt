@@ -28,18 +28,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import web.athma.todo.data.TodoDatabase
+import web.athma.todo.data.TodoRepository
 import web.athma.todo.ui.TodoScreen
+import web.athma.todo.ui.TodoViewModelFactory
 import web.athma.todo.ui.theme.TODOTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Create the database
+        val database = TodoDatabase.getInstance(applicationContext)
+
+        // Get the DAO
+        val dao = database.todoDao()
+
+        // Create the Repository
+        val repository = TodoRepository(dao)
+
+        // Create a factory for ViewModel
+        val viewModelFactory = TodoViewModelFactory(repository)
+
         enableEdgeToEdge()
         setContent {
             TODOTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     TodoScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        todoViewModelFactory = viewModelFactory
                     )
                 }
             }

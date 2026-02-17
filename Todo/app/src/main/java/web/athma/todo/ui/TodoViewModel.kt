@@ -3,24 +3,34 @@ package web.athma.todo.ui
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import web.athma.todo.data.Todo
+import web.athma.todo.data.TodoRepository
 
-class TodoViewModel: ViewModel() {
+class TodoViewModel(
+    private val repository: TodoRepository
+): ViewModel() {
     private val _todoTextState =  mutableStateOf("")
     val todoTextState: State<String> = _todoTextState
 
-    // Fake data
-    private val _fakeTodos = mutableStateOf(listOf(
-        "Buy milk",
-        "Learn MVVM",
-        "Build todo app"
-    ))
-    val fakeTodos: State<List<String>> = _fakeTodos
+    // Todo data
+    val todos: Flow<List<Todo>> = repository.getTodos()
 
     fun updateText(todoText: String) {
         _todoTextState.value = todoText
     }
 
     fun addTodo() {
-        _fakeTodos.value += _todoTextState.value
+        viewModelScope.launch {
+            repository.addTodo(_todoTextState.value)
+        }
+    }
+
+    fun updateTodo(todo: Todo) {
+        viewModelScope.launch {
+            repository.updateTodo(todo)
+        }
     }
 }
